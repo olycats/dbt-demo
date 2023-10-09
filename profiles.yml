@@ -1,0 +1,24 @@
+default: # this needs to match the profile in your dbt_project.yml file
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account-json
+      project: dbt-demo-2023 # Replace this with your project id
+      dataset: dbt_dev_stacy # Replace this with dbt_your_name, e.g. dbt_bilbo
+      threads: 1
+      timeout_seconds: 300
+      location: US
+      priority: interactive
+      # These fields come from the service account json keyfile
+      keyfile_json:
+        type: service_account
+        project_id: dbt-demo-2023
+        private_key_id: 8c9d822e3da9caa357c5d780822e7f51136dfbfe
+        private_key: "{{ env_var('PRIVATE_KEY') }}"
+        client_email: dbt-demo-service-account@dbt-demo-2023.iam.gserviceaccount.com
+        client_id: 116885331645342010738
+        auth_uri: https://accounts.google.com/o/oauth2/auth
+        token_uri: https://oauth2.googleapis.com/token
+        auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
+        client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/dbt-demo-service-account%40dbt-demo-2023.iam.gserviceaccount.com
